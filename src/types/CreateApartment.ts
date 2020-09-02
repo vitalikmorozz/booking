@@ -2,7 +2,7 @@ import { InputType, Field } from "type-graphql";
 import { IsString, ValidateNested, IsDate, IsBoolean, IsNumber } from 'class-validator';
 
 @InputType()
-class CreateTimeSlot {
+export class CreateTimeSlot {
     @IsDate()
     @Field(() => Date)
     dateFrom: Date;
