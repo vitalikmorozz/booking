@@ -3,7 +3,7 @@ import { Apartment, TimeSlot } from "./Apartment";
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 
 @ObjectType()
-class Buyer {
+export class Buyer {
     @Property()
     @Field()
     firstName: string;

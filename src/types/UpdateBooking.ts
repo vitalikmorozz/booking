@@ -6,17 +6,17 @@ import { UpdateTimeSlot, UpdateApartmentType } from "./UpdateApartment";
 export class UpdateBuyerType {
     @IsOptional()
     @IsString()
-    @Field()
+    @Field({ nullable: true })
     firstName: string;
 
     @IsOptional()
     @IsString()
-    @Field()
+    @Field({ nullable: true })
     lastName: string;
 
     @IsOptional()
     @IsEmail()
-    @Field()
+    @Field({ nullable: true })
     email: string;
 }
 
@@ -24,16 +24,16 @@ export class UpdateBuyerType {
 export class UpdateBookingType {
     @IsOptional()
     @ValidateNested()
-    @Field(() => UpdateApartmentType)
+    @Field(() => UpdateApartmentType, { nullable: true })
     apartment: UpdateApartmentType;
 
     @IsOptional()
     @ValidateNested()
-    @Field(() => UpdateTimeSlot)
+    @Field(() => UpdateTimeSlot, { nullable: true })
     selectedTimeSlot: UpdateTimeSlot
 
     @IsOptional()
     @ValidateNested()
-    @Field(() => UpdateBuyerType)
+    @Field(() => UpdateBuyerType, { nullable: true })
     buyer: UpdateBuyerType;
 }
