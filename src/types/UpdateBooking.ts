@@ -23,9 +23,9 @@ export class UpdateBuyerType {
 @InputType()
 export class UpdateBookingType {
     @IsOptional()
-    @ValidateNested()
-    @Field(() => UpdateApartmentType, { nullable: true })
-    apartment: UpdateApartmentType;
+    @IsString()
+    @Field({ nullable: true })
+    apartment_id: string;
 
     @IsOptional()
     @ValidateNested()

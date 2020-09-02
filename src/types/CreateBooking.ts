@@ -20,9 +20,9 @@ export class CreateBuyerType {
 
 @InputType()
 export class CreateBookingType {
-    @ValidateNested()
-    @Field(() => CreateApartmentType)
-    apartment: CreateApartmentType;
+    @IsString()
+    @Field()
+    apartment_id: string;
 
     @ValidateNested()
     @Field(() => CreateTimeSlot)

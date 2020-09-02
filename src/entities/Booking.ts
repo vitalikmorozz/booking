@@ -23,11 +23,10 @@ export class Booking {
     id: string;
 
     @Field(() => Apartment)
-    @Property({
-        type: Apartment,
-        _id: false
-    })
     apartment: Apartment;
+
+    @Property()
+    apartment_id: string;
 
     @Field(() => TimeSlot)
     @Property({

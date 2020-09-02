@@ -1,12 +1,16 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, FieldResolver, Root } from "type-graphql";
 import { BookingService } from "../services/BookingService";
 import { Booking } from "../entities/Booking";
 import { CreateBookingType } from "../types/CreateBooking";
 import { UpdateBookingType } from "../types/UpdateBooking";
+import { ApartmentService } from "../services/ApartmentService";
 
-@Resolver()
+@Resolver(() => Booking)
 export class BookingResolver {
-    constructor(private readonly bookingService = new BookingService()) { }
+    constructor(
+        private readonly bookingService = new BookingService(),
+        private readonly apartmentService = new ApartmentService()
+    ) { }
 
     @Query(() => [Booking], { name: 'bookings' })
     async getAll() {
@@ -16,7 +20,14 @@ export class BookingResolver {
 
     @Query(() => Booking, { name: 'booking' })
     async getOne(@Arg('id') id: string) {
-        return await this.bookingService.findOne(id);
+        const data = await this.bookingService.findOne(id)
+        return data;
+    }
+
+    @FieldResolver()
+    async apartment(@Root() booking: Booking) {
+        //@ts-ignore
+        return await this.apartmentService.findOne(booking._doc.apartment_id);
     }
 
     @Mutation(() => Booking, { name: 'createBooking' })
