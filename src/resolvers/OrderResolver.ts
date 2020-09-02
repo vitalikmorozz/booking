@@ -1,12 +1,16 @@
-import { Resolver, Query, Arg, Mutation, FieldResolver } from "type-graphql";
+import { Resolver, Query, Arg, Mutation, FieldResolver, Root } from "type-graphql";
 import { OrderService } from "../services/OrderService";
 import { Order } from "../entities/Order";
 import { CreateOrderType } from "../types/CreateOrder";
 import { UpdateOrderType } from "../types/UpdateOrder";
+import { VoucherService } from "../services/VoucherService";
 
-@Resolver()
+@Resolver(() => Order)
 export class OrderResolver {
-    constructor(private readonly orderService: OrderService) { }
+    constructor(
+        private readonly orderService = new OrderService(),
+        private readonly voucherService = new VoucherService()
+    ) { }
 
     @Query(() => [Order], { name: 'orders' })
     async getAll() {
@@ -17,6 +21,12 @@ export class OrderResolver {
     @Query(() => Order, { name: 'order' })
     async getOne(@Arg('id') id: string) {
         return await this.orderService.findOne(id);
+    }
+
+    @FieldResolver()
+    async voucher(@Root() order: Order) {
+        //@ts-ignore
+        return this.voucherService.findOne(order._doc.voucher_id);
     }
 
     @Mutation(() => Order, { name: 'createOrder' })

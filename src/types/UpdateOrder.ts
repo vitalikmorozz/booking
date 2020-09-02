@@ -1,14 +1,14 @@
 import { Field, InputType } from "type-graphql";
 import { UpdateBuyerType } from "./UpdateBooking";
 import { UpdateVoucherType } from "./UpdateVoucher";
-import { ValidateNested, IsNumber, IsOptional } from "class-validator";
+import { ValidateNested, IsNumber, IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class UpdateOrderType {
     @IsOptional()
-    @ValidateNested()
-    @Field(() => UpdateVoucherType, { nullable: true })
-    voucher: UpdateVoucherType;
+    @IsString()
+    @Field({ nullable: true })
+    voucher_id: string;
 
     @IsOptional()
     @IsNumber()

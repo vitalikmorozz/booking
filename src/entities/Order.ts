@@ -9,11 +9,10 @@ export class Order {
     id: string;
 
     @Field(() => Voucher)
-    @Property({
-        type: Voucher,
-        _id: false
-    })
     voucher: Voucher;
+
+    @Property()
+    voucher_id: string;
 
     @Field()
     @Property()

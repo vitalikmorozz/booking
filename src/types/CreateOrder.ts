@@ -1,13 +1,13 @@
 import { Field, InputType } from "type-graphql";
 import { CreateBuyerType } from "./CreateBooking";
 import { CreateVoucherType } from "./CreateVoucher";
-import { ValidateNested, IsNumber } from "class-validator";
+import { ValidateNested, IsNumber, IsString } from "class-validator";
 
 @InputType()
 export class CreateOrderType {
-    @ValidateNested()
-    @Field(() => CreateVoucherType)
-    voucher: CreateVoucherType;
+    @IsString()
+    @Field()
+    voucher_id: string;
 
     @IsNumber()
     @Field()
