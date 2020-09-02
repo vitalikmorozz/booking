@@ -17,7 +17,8 @@ const PORT = process.env.PORT || 3000;
 
 const main = async () => {
     const schema = await buildSchema({
-        resolvers: [UserResolver, ApartmentResolver, VoucherResolver, BookingResolver, OrderResolver]
+        resolvers: [UserResolver, ApartmentResolver, VoucherResolver, BookingResolver, OrderResolver],
+
     });
 
     // create mongoose connection
@@ -27,7 +28,7 @@ const main = async () => {
     });
 
 
-    const server = new ApolloServer({ schema });
+    const server = new ApolloServer({ schema, context: ({ req, res }) => ({ req, res }) });
     const app = express();
     //@ts-ignore
     server.applyMiddleware({ app });

@@ -13,6 +13,10 @@ export class UserService {
         return this.userModel.findById(id);
     }
 
+    async findOneByEmail(email: string) {
+        return this.userModel.findOne({ email });
+    }
+
     async create(createUserData: CreateUserType) {
         const newUser = new this.userModel(createUserData);
         return await newUser.save();
